@@ -1,0 +1,14 @@
+ul {}
+
+ul li {
+    display: inline-block;
+    list-style-type: none;
+    padding: 10px 30px;
+    background: #333;
+    color: white;
+    cursor: pointer;
+}
+
+ul li.active {
+    background: teal;
+}
