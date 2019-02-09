@@ -1,0 +1,21 @@
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: black;
+  color: white;
+  min-height: 100vh;
+  padding: 15px; }
+  body .event_countdown_box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px; }
+  body #event_countdown span {
+    font-size: 20px; }
+    body #event_countdown span.timestamp_title {
+      display: inline-block;
+      margin-right: 20px;
+      color: #aaa;
+      font-size: 16px; }
+
+/*# sourceMappingURL=style.css.map */

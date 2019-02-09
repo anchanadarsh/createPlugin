@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Event Countdown</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <div class="event_countdown_box">
+            <div id="event_countdown">
+                <span class="days_left">0</span> <span class="timestamp_title">days</span>
+                <span class="hours_left">0</span> <span class="timestamp_title">hours</span>
+                <span class="minutes_left">0</span> <span class="timestamp_title">minutes</span>
+                <span class="seconds_left">0</span> <span class="timestamp_title">seconds</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            (function($) {
+                $.fn.eventCountdown = function(options) {
+                    //default settings
+                    var settings = {
+                        'eventDate': null,
+                        'launchMsg': 'We are Live!'
+                    }
+
+                    //overide setting
+                    if (options) {
+                        $.extend(settings, options);
+                        console.log(settings);
+                    }
+
+                    $this_self = $(this);
+
+                    //countdown function
+                    function count_execution() {
+                        var event_date = Date.parse(settings['eventDate']) / 1000;
+                        var current_date = Math.floor($.now() / 1000);
+
+                        if (event_date > current_date) {
+                            var time_left = event_date - current_date;
+
+                            //calculate no of days left
+                            var days_left = Math.floor(time_left / (24 * 60 * 60));
+                            time_left -= days_left * 24 * 60 * 60;
+                            var hours_left = Math.floor(time_left / (60 * 60));
+                            time_left -= hours_left * 60 * 60;
+                            var mins_left = Math.floor(time_left / (60));
+                            time_left -= mins_left * 60;
+                            var secs_left = Math.floor(time_left);
+
+                            $('.days_left').text(days_left);
+                            $('.hours_left').text(hours_left);
+                            $('.minutes_left').text(mins_left);
+                            $('.seconds_left').text(secs_left);
+                        } else {
+                            clearInterval(count_interval);
+                            $this_self.text(settings['launchMsg']);
+                        }
+                    }
+
+                    var count_interval = setInterval(function() {
+                        count_execution();
+                    }, 1000);
+                }
+            })(jQuery);
+
+            // calling countdown plugin
+            $('#event_countdown').eventCountdown({
+                'eventDate': '10 February 2019 00:40:00',
+                'launchMsg': 'Event is Live!!!'
+            });
+        });
+
+    </script>
+</body>
+
+</html>
